@@ -1,5 +1,5 @@
  
-import { Model } from "mongoose"
+import { Model, Types } from "mongoose"
 
  
 
@@ -29,7 +29,7 @@ export type TLocalGurdian = {
 
 export type TStudent = {
   id: string;
-  password : string;
+  user : Types.ObjectId;
   name: TUserName;
   gender : "male" | "female" | "other";
   dateOfBirth? : string;
@@ -42,13 +42,13 @@ export type TStudent = {
   gurdian : TGuardian;
   localGuardian : TLocalGurdian;
   profileImg? : string;
-  isActive : "active" | "inActive",
   isDeleted : boolean
 }
 
 // for creating static
 
 export interface StudentModel extends Model<TStudent> {
+  // eslint-disable-next-line no-unused-vars
   isUserExists(id : string) : Promise<TStudent | null>
 }
 
