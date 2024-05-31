@@ -23,7 +23,10 @@ const updateAcademicSemesterIntoDB = async (
   id: string,
   payload: Partial<TAcademicSemester>,
 ) => {
-  if ( payload.name && payload.code && academicSemisterCodeMapper[payload.name] !== payload.code
+  if (
+    payload.name &&
+    payload.code &&
+    academicSemisterCodeMapper[payload.name] !== payload.code
   ) {
     throw new Error('Invalid Semester Code')
   }
@@ -38,5 +41,5 @@ export const AcademicSemesterServices = {
   createAcademicSemesterIntoDb,
   getAllAcademicSemisteFromDb,
   getSingleAcademicSemisterFromDb,
-  updateAcademicSemesterIntoDB
+  updateAcademicSemesterIntoDB,
 }

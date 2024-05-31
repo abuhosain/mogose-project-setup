@@ -5,7 +5,6 @@ import validateRequest from '../../middleware/validateRequest'
 
 const router = express.Router()
 
-
 router.post(
   '/create-student',
   validateRequest(studentValidations.createStudentValidationSchema),

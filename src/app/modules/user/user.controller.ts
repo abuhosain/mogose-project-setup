@@ -3,7 +3,7 @@ import sendResponse from '../../utils/sendResponse'
 import httpStatus from 'http-status'
 import catchAsync from '../../utils/catchAsync'
 
-const createStudent = catchAsync(async (req, res,) => {
+const createStudent = catchAsync(async (req, res) => {
   const { student: studentData, password } = req.body
   // will call services func to send this data
   const result = await UserServices.createStudentIntoDb(password, studentData)
