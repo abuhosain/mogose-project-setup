@@ -1,7 +1,7 @@
 import { z } from 'zod'
 
 // UserName Schema
-const userNameValidationSchema = z.object({
+const creteUserNameValidationSchema = z.object({
   firstname: z
     .string()
     .max(20, 'First name cannot exceed 20 characters')
@@ -15,7 +15,7 @@ const userNameValidationSchema = z.object({
 })
 
 // Guardian Schema
-const guardianValidationSchema = z.object({
+const createGuardianValidationSchema = z.object({
   fatherName: z.string(),
   fatherOccuption: z.string(),
   fatherContact: z.string(),
@@ -25,7 +25,7 @@ const guardianValidationSchema = z.object({
 })
 
 // LocalGuardian Schema
-const localGuardianValidationSchema = z.object({
+const createLocalGuardianValidationSchema = z.object({
   name: z.string(),
   occuption: z.string(),
   contactNo: z.string(),
@@ -37,7 +37,7 @@ const createStudentValidationSchema = z.object({
   body: z.object({
     password: z.string().max(20).optional(),
     student: z.object({
-      name: userNameValidationSchema,
+      name: creteUserNameValidationSchema,
       gender: z.enum(['male', 'female', 'other']),
       dateOfBirth: z.string().optional(),
       email: z.string().email(),
@@ -48,15 +48,19 @@ const createStudentValidationSchema = z.object({
         .optional(),
       presentAddress: z.string(),
       permamentAddress: z.string(),
-      gurdian: guardianValidationSchema,
-      localGuardian: localGuardianValidationSchema,
+      gurdian: createGuardianValidationSchema,
+      localGuardian: createLocalGuardianValidationSchema,
       profileImg: z.string().optional(),
       admissiionSemester: z.string(),
+      academicDepartment: z.string(),
     }),
   }),
 })
 
+const updateStudentValidationSchema = createStudentValidationSchema.deepPartial();
+
 // Export the schemas
 export const studentValidations = {
   createStudentValidationSchema,
+  updateStudentValidationSchema
 }
