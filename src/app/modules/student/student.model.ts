@@ -8,6 +8,8 @@ import {
   TUserName,
 } from './student.interface'
 import validator from 'validator'
+import AppError from '../../errors/AppError'
+import httpStatus from 'http-status'
 
 const userNameSchema = new Schema<TUserName>({
   firstname: {
@@ -126,8 +128,25 @@ studentSchema.virtual('fullName').get(function () {
   return `${this.name.firstname} ${this.name.middleName} ${this.name.lastName}`
 })
 
-// query middlware
 
+// email checking
+studentSchema.pre('save', async function (next) {
+  const isDepartmentExist = await Student.findOne({
+    email: this.email,
+  })
+  if (isDepartmentExist) {
+    throw new AppError(
+      httpStatus.NOT_FOUND,
+      'This email is aleready used',
+    )
+  }
+  next()
+})
+
+
+
+
+// query middlware
 studentSchema.pre('find', function (next) {
   this.find({ isDeleted: { $ne: true } })
   next()
@@ -144,7 +163,6 @@ studentSchema.pre('aggregate', function (next) {
 })
 
 // creating static instance method
-
 studentSchema.statics.isUserExists = async function (id: string) {
   const existingUser = await Student.findOne({ id })
   return existingUser
