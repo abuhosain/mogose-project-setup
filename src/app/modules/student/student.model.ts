@@ -125,7 +125,7 @@ const studentSchema = new Schema<TStudent, StudentModel>(
 
 // Virtual
 studentSchema.virtual('fullName').get(function () {
-  return `${this.name.firstname} ${this.name.middleName} ${this.name.lastName}`
+  return `${this?.name?.firstname} ${this?.name?.middleName} ${this?.name?.lastName}`
 })
 
 
