@@ -17,15 +17,16 @@ async function main() {
 }
 main();
 
-process.on("unhandledRejection", () => {
+process.on("unhandledRejection", (err) => {
   console.log(`unhandledRejection is detected shutting down the server`)
+  console.log("err", err)
   if(server){
     server.close( () => {
       process.exit(1)
     })
   }
   process.exit(1)
-})
+}) 
 
 process.on("uncaughtException", () => {
   console.log(`uncaughtException is detected shutting down the server`)

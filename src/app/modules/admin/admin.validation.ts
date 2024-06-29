@@ -34,6 +34,7 @@ const updateUserNameValidationSchema = z.object({
 
 export const updateAdminValidationSchema = z.object({
   body: z.object({
+    passowrd : z.string().optional(),
     admin: z.object({
       name: updateUserNameValidationSchema.optional(),
       designation: z.string().max(30).optional(),

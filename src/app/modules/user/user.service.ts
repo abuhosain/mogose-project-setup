@@ -121,8 +121,6 @@ const crateFacultyIntoDb = async(password : string, payload : TFaculty) => {
 }
 
 
-
-
 const createAdminIntoDb = async (password : string, payload : Partial<TAdmin>) => {
   const userData : Partial<TUser> = {};
 
@@ -138,7 +136,6 @@ const createAdminIntoDb = async (password : string, payload : Partial<TAdmin>) =
     session.startTransaction();
 
     // set generated id
-
     userData.id = await generateAdminId();
 
     // create a user transition 1
@@ -155,7 +152,7 @@ const createAdminIntoDb = async (password : string, payload : Partial<TAdmin>) =
 
     const newAdmin = await Admin.create([payload], {session});
 
-    session.commitTransaction()
+    await session.commitTransaction()
     session.endSession()
     
     return newAdmin;
@@ -171,5 +168,5 @@ const createAdminIntoDb = async (password : string, payload : Partial<TAdmin>) =
 export const UserServices = {
   createStudentIntoDb,
   crateFacultyIntoDb,
-  createAdminIntoDb
+  createAdminIntoDb 
 }
